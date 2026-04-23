@@ -730,7 +730,7 @@ img { max-width: 100%; display: block; }
     order: -1;
     width: 100%;
     justify-content: center;
-    margin-top: -60px; /* מעלים את התמונה כך שלא תחפוף על ה-eyebrow */
+    margin-top: -130px; /* מעלים את התמונה עד קרוב ל-nav */
   }
   .hero-image-wrap {
     max-width: 100%;
