@@ -747,13 +747,7 @@ img { max-width: 100%; display: block; }
     letter-spacing: .07em !important;
     animation: none !important;
     box-shadow: none !important;
-    transition: background .25s, box-shadow .25s, transform .25s !important;
-    cursor: default;
-  }
-  .eyebrow-main:hover {
-    background: rgba(212, 115, 106, 0.25) !important;
-    box-shadow: 0 4px 18px rgba(212, 115, 106, 0.3) !important;
-    transform: translateX(50%) translateY(-2px) !important;
+    pointer-events: none;
   }
   .eyebrow:not(.eyebrow-main) { font-size: 9px; padding: 0; margin-bottom: 14px; }
 }
