@@ -724,7 +724,7 @@ img { max-width: 100%; display: block; }
 }
 
 @media (max-width: 540px) {
-  .hero { padding: 16px 12px 110px; }
+  .hero { padding: 16px 12px 80px; }
   .hero-inner {
     grid-template-columns: .85fr 1.15fr;
     gap: 6px;
@@ -735,10 +735,10 @@ img { max-width: 100%; display: block; }
   .hero-cta { padding: 11px 20px; font-size: 11px; letter-spacing: .03em; }
   .hero-image { margin-top: -18px; }
 
-  /* eyebrow יורד מתחת לגריד — מספיק מרווח כדי שהתמונה לא תחפוף */
+  /* eyebrow יורד מתחת לגריד */
   .eyebrow-main {
     position: absolute !important;
-    bottom: -78px !important;
+    bottom: -52px !important;
     right: 50% !important;
     transform: translateX(50%) !important;
     white-space: nowrap !important;
