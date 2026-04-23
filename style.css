@@ -668,7 +668,7 @@ img { max-width: 100%; display: block; }
   100% { transform: scaleY(.2); opacity: .3; transform-origin: bottom; }
 }
 
-/* Hero responsive: keep two-column layout on all screens */
+/* Hero responsive: keep two-column layout on tablet */
 @media (max-width: 900px) {
   .hero {
     min-height: auto;
@@ -676,7 +676,7 @@ img { max-width: 100%; display: block; }
     align-items: flex-start;
   }
   .hero-inner {
-    grid-template-columns: 1fr 1.1fr;
+    grid-template-columns: 1fr 1.3fr;
     gap: 10px;
     text-align: right;
     align-items: center;
@@ -706,49 +706,79 @@ img { max-width: 100%; display: block; }
     box-shadow: 0 3px 14px rgba(180, 80, 72, 0.22);
     animation: fu 1s var(--ease-silk) .9s forwards;
   }
-  /* Lighter drop-shadow on mobile image */
   .hero-image-wrap img {
     filter: drop-shadow(0 10px 20px rgba(90, 50, 30, 0.12));
   }
-  /* Smooth animations on mobile */
   .hero .hero-text .reveal:nth-child(1) { animation: heroFade 1s var(--ease-silk) .15s forwards; }
   .hero .hero-text .reveal:nth-child(2) { animation: heroFade 1s var(--ease-silk) .35s forwards; }
   .hero .hero-text .reveal:nth-child(3) { animation: heroFade 1s var(--ease-silk) .55s forwards; }
   .hero-image { animation: heroImgIn 1.2s var(--ease-silk) .3s forwards; }
-  .hero-title .accent::after {
-    animation: underline 1s var(--ease-silk) .9s forwards;
-  }
-  .hero-scroll {
-    display: none;
-  }
+  .hero-title .accent::after { animation: underline 1s var(--ease-silk) .9s forwards; }
+  .hero-scroll { display: none; }
 }
 
-@media (max-width: 540px) {
-  .hero { padding: 16px 12px 80px; }
+/* Mobile: עמודה אחת — תמונה גדולה למעלה, טקסט למטה */
+@media (max-width: 600px) {
+  .hero { padding: 0 0 60px; }
   .hero-inner {
-    grid-template-columns: .85fr 1.15fr;
-    gap: 6px;
-    position: relative;
+    grid-template-columns: 1fr;
+    grid-template-rows: auto auto;
+    gap: 0;
+    align-items: start;
   }
-  .hero-title { font-size: clamp(22px, 7vw, 36px); line-height: 1.1; }
-  .hero-sub { font-size: 13px; line-height: 1.55; margin-bottom: 22px; }
-  .hero-cta { padding: 11px 20px; font-size: 11px; letter-spacing: .03em; }
-  .hero-image { margin-top: -55px; }
-
-  /* eyebrow יורד מתחת לגריד */
-  .eyebrow-main {
-    position: absolute !important;
-    bottom: -52px !important;
-    right: 50% !important;
-    transform: translateX(50%) !important;
-    white-space: nowrap !important;
-    font-size: 11px !important;
-    padding: 8px 18px !important;
-    letter-spacing: .07em !important;
-    animation: none !important;
-    box-shadow: none !important;
+  .hero-image {
+    order: -1;
+    width: 100%;
+    justify-content: center;
+    margin-top: -60px; /* מעלים את התמונה כך שלא תחפוף על ה-eyebrow */
   }
-  .eyebrow:not(.eyebrow-main) { font-size: 9px; padding: 0; margin-bottom: 14px; }
+  .hero-image-wrap {
+    max-width: 100%;
+    width: 100%;
+  }
+  .hero-image-wrap img {
+    width: 100%;
+    height: auto;
+    object-fit: cover;
+    object-position: top center;
+    filter: drop-shadow(0 8px 16px rgba(90, 50, 30, 0.1));
+  }
+  .hero-text {
+    padding: 20px 20px 0;
+    text-align: right;
+  }
+  .eyebrow {
+    display: inline-block;
+    font-size: 11px;
+    letter-spacing: .1em;
+    padding: 8px 16px;
+    background: rgba(255,255,255,0.7);
+    backdrop-filter: blur(8px);
+    border: 1.5px solid rgba(212, 115, 106, 0.35);
+    border-radius: 100px;
+    color: #0f0f0f;
+    font-weight: 600;
+    margin-bottom: 16px;
+    transition: background .25s, box-shadow .25s, transform .25s;
+    cursor: default;
+  }
+  .eyebrow:hover {
+    background: rgba(212, 115, 106, 0.18);
+    box-shadow: 0 4px 18px rgba(212, 115, 106, 0.3);
+    transform: translateY(-2px);
+  }
+  .hero-title { font-size: clamp(24px, 7vw, 36px); line-height: 1.15; margin-bottom: 14px; }
+  .hero-sub { font-size: 14px; line-height: 1.6; margin-bottom: 24px; }
+  .hero-cta {
+    padding: 14px 28px;
+    font-size: 14px;
+    transition: transform .3s var(--ease-silk), box-shadow .3s var(--ease-silk);
+  }
+  .hero-cta:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 10px 30px rgba(180, 80, 72, 0.45);
+  }
+  .hero-scroll { display: none; }
 }
 
 /* ==========================================================================
@@ -1896,6 +1926,7 @@ img { max-width: 100%; display: block; }
     background: rgba(212, 115, 106, 0.12) !important;
     border: 1px solid rgba(212, 115, 106, 0.3) !important;
     letter-spacing: .08em !important;
+    white-space: nowrap !important;
   }
 }
 
