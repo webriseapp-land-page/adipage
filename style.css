@@ -745,9 +745,13 @@ img { max-width: 100%; display: block; }
     font-size: 11px !important;
     padding: 8px 18px !important;
     letter-spacing: .07em !important;
-    animation: none !important;
+    animation: eyebrowBlink 2s ease-in-out infinite !important;
     box-shadow: none !important;
     pointer-events: none;
+  }
+  @keyframes eyebrowBlink {
+    0%, 100% { background: rgba(212, 115, 106, 0.15); box-shadow: none; }
+    50%       { background: rgba(212, 115, 106, 0.38); box-shadow: 0 0 14px rgba(212, 115, 106, 0.45); }
   }
   .eyebrow:not(.eyebrow-main) { font-size: 9px; padding: 0; margin-bottom: 14px; }
 }
