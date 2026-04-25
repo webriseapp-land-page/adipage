@@ -190,12 +190,12 @@
      -------------------------------------------------------------------------- */
   (function () {
     var images = [
-      { src: 'images/testimonial1.png', alt: 'המלצה 1' },
-      { src: 'images/testimonial2.png', alt: 'המלצה 2' },
-      { src: 'images/testimonial3.png', alt: 'המלצה 3' },
-      { src: 'images/testimonial4.png', alt: 'המלצה 4' },
-      { src: 'images/testimonial5.png', alt: 'המלצה 5' },
-      { src: 'images/testimonial6.png', alt: 'המלצה 6' }
+      { src: 'images/testimonial1.webp', alt: 'המלצה 1' },
+      { src: 'images/testimonial2.webp', alt: 'המלצה 2' },
+      { src: 'images/testimonial3.webp', alt: 'המלצה 3' },
+      { src: 'images/testimonial4.webp', alt: 'המלצה 4' },
+      { src: 'images/testimonial5.webp', alt: 'המלצה 5' },
+      { src: 'images/testimonial6.webp', alt: 'המלצה 6' }
     ];
 
     var lb        = document.getElementById('testiLb');
