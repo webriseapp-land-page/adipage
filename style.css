@@ -735,7 +735,7 @@ img { max-width: 100%; display: block; }
   .hero-cta { padding: 11px 20px; font-size: 11px; letter-spacing: .03em; }
   .hero-image { margin-top: -18px; }
 
-  /* eyebrow יורד מתחת לגריד */
+  /* eyebrow יורד מתחת לגריד — מספיק מרווח כדי שהתמונה לא תחפוף */
   .eyebrow-main {
     position: absolute !important;
     bottom: -78px !important;
@@ -745,13 +745,8 @@ img { max-width: 100%; display: block; }
     font-size: 11px !important;
     padding: 8px 18px !important;
     letter-spacing: .07em !important;
-    animation: eyebrowBlink 2s ease-in-out infinite !important;
+    animation: none !important;
     box-shadow: none !important;
-    pointer-events: none;
-  }
-  @keyframes eyebrowBlink {
-    0%, 100% { background: rgba(212, 115, 106, 0.15); box-shadow: none; }
-    50%       { background: rgba(212, 115, 106, 0.38); box-shadow: 0 0 14px rgba(212, 115, 106, 0.45); }
   }
   .eyebrow:not(.eyebrow-main) { font-size: 9px; padding: 0; margin-bottom: 14px; }
 }
@@ -1926,4 +1921,303 @@ img { max-width: 100%; display: block; }
 .wa-lead-btn:hover {
   transform: translateY(-3px) !important;
   box-shadow: 0 14px 40px rgba(212,115,106,0.65) !important;
+}
+
+
+
+
+
+/* ==========================================================================
+   TESTIMONIALS — Phone mockup scattered cards + Lightbox
+   ========================================================================== */
+
+.testi-hint {
+  font-size: .85rem;
+  color: var(--mute);
+  margin-top: 6px;
+}
+
+/* ── Scene ── */
+.testi-scene {
+  position: relative;
+  width: 100%;
+  height: 540px;
+  margin: 56px auto 80px;
+  max-width: 960px;
+}
+
+/* ══════════════════════════════════════════
+   CARD — real phone frame
+   Border = thick rounded black frame
+   Inner = white screen area
+   ══════════════════════════════════════════ */
+.testi-card {
+  position: absolute;
+  width: 162px;
+
+  /* Phone outer shell — slim, no border like Nofer */
+  background: #1a1a1a;
+  border-radius: 28px;
+  padding: 6px 6px 10px;
+  box-shadow:
+    0 8px 32px rgba(0,0,0,0.22),
+    0 2px 8px rgba(0,0,0,0.15);
+
+  cursor: pointer;
+  transition: transform 0.28s cubic-bezier(.16,1,.3,1),
+              box-shadow 0.28s cubic-bezier(.16,1,.3,1);
+  will-change: transform;
+}
+
+/* Slim top bar — thin pill like Nofer */
+.testi-notch {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 6px;
+  margin-bottom: 5px;
+  flex-shrink: 0;
+}
+.testi-notch::before {
+  content: '';
+  width: 36px;
+  height: 4px;
+  border-radius: 2px;
+  background: #3a3a3a;
+  box-shadow: none;
+}
+/* hide the line spans in notch — not needed for real phone look */
+.testi-notch-lines { display: none; }
+
+/* Screen — white rounded rect */
+.testi-img-wrap {
+  width: 100%;
+  height: 210px;
+  overflow: hidden;
+  border-radius: 16px;
+  background: #f5f5f5;
+}
+.testi-img-wrap img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: top center;
+  display: block;
+  pointer-events: none;
+}
+
+/* Bottom home bar */
+.testi-card::after {
+  content: '';
+  display: block;
+  width: 40px;
+  height: 4px;
+  border-radius: 2px;
+  background: #333;
+  margin: 8px auto 0;
+}
+
+/* Hover */
+.testi-card:hover,
+.testi-card:focus-visible {
+  transform: scale(1.07) rotate(0deg) !important;
+  box-shadow:
+    0 0 0 1px #2a2a2a,
+    0 24px 64px rgba(212,115,106,0.3),
+    0 6px 16px rgba(0,0,0,0.25);
+  z-index: 20 !important;
+  outline: none;
+}
+.testi-card:active { transform: scale(0.96) !important; }
+
+/* ── Positions — centered with calc ── */
+/* Top row */
+.testi-0 { left: calc(50% - 270px); top: 30px;  transform: rotate(-7deg); z-index: 6; }
+.testi-1 { left: calc(50% - 81px);  top: 10px;  transform: rotate(-2deg); z-index: 5; }
+.testi-2 { left: calc(50% + 108px); top: 28px;  transform: rotate(6deg);  z-index: 4; }
+/* Bottom row */
+.testi-3 { left: calc(50% - 258px); top: 268px; transform: rotate(-5deg); z-index: 3; }
+.testi-4 { left: calc(50% - 71px);  top: 248px; transform: rotate(3deg);  z-index: 2; }
+.testi-5 { left: calc(50% + 116px); top: 268px; transform: rotate(7deg);  z-index: 1; }
+
+/* ══════════════════════════════════════════
+   LIGHTBOX — Fixed so nothing is cut off
+   Key: use dvh / svh, center the box,
+   let the scroll container handle overflow
+   ══════════════════════════════════════════ */
+.testi-lb {
+  display: none;
+  position: fixed;
+  inset: 0;
+  z-index: 9000;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  box-sizing: border-box;
+}
+.testi-lb.open { display: flex; }
+
+.testi-lb-overlay {
+  position: absolute;
+  inset: 0;
+  background: rgba(7,5,3,0.88);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+}
+
+/* X button — fixed to viewport, always visible */
+.testi-lb-close {
+  position: fixed;
+  top: 16px;
+  left: 16px;
+  width: 38px;
+  height: 38px;
+  border-radius: 50%;
+  background: #fff;
+  color: #0f0f0f;
+  border: none;
+  font-size: 17px;
+  cursor: pointer;
+  z-index: 9999;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 4px 16px rgba(0,0,0,0.3);
+  transition: background 0.2s, transform 0.2s;
+}
+.testi-lb-close:hover {
+  background: var(--clay);
+  color: #fff;
+  transform: scale(1.1) rotate(90deg);
+}
+
+/* Row: arrow + phone + arrow */
+.testi-lb-box {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 14px;
+  max-width: 100%;
+  width: 100%;
+  animation: lbPop 0.28s cubic-bezier(.16,1,.3,1) both;
+}
+
+@keyframes lbPop {
+  from { opacity: 0; transform: scale(0.88); }
+  to   { opacity: 1; transform: scale(1); }
+}
+
+/* Nav arrows — always visible */
+.testi-lb-nav {
+  flex-shrink: 0;
+  width: 46px;
+  height: 46px;
+  border-radius: 50%;
+  background: rgba(255,255,255,0.12);
+  border: 1.5px solid rgba(255,255,255,0.24);
+  color: #fff;
+  font-size: 26px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  backdrop-filter: blur(4px);
+  transition: background 0.2s, transform 0.2s;
+}
+.testi-lb-nav:hover {
+  background: var(--clay);
+  border-color: var(--clay);
+  transform: scale(1.1);
+}
+
+/* Phone scroll container */
+.testi-lb-scroll {
+  width: min(380px, calc(100vw - 120px));
+  max-height: calc(100dvh - 60px);
+  overflow-y: auto;
+  overflow-x: hidden;
+  background: #ece5dd;
+  border-radius: 26px;
+  box-shadow:
+    0 0 0 8px #111,
+    0 0 0 9px #2a2a2a,
+    0 32px 80px rgba(0,0,0,0.6);
+  scrollbar-width: thin;
+  scrollbar-color: rgba(212,115,106,0.5) transparent;
+}
+.testi-lb-scroll::-webkit-scrollbar { width: 4px; }
+.testi-lb-scroll::-webkit-scrollbar-thumb {
+  background: rgba(212,115,106,0.5);
+  border-radius: 10px;
+}
+
+/* Chrome bar hidden */
+.testi-lb-chrome { display: none; }
+.testi-lb-chrome::before {
+  content: '';
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background: #2c2c2c;
+  flex-shrink: 0;
+}
+.testi-lb-chrome-lines { display: flex; flex-direction: column; gap: 5px; flex: 1; }
+.testi-lb-chrome-lines span { display: block; height: 6px; border-radius: 3px; background: rgba(255,255,255,0.18); }
+.testi-lb-chrome-lines span:first-child { width: 52%; }
+.testi-lb-chrome-lines span:last-child  { width: 32%; }
+
+/* Image fills phone width, scrolls naturally */
+.testi-lb-scroll img {
+  display: block;
+  width: 100%;
+  height: auto;
+  border-radius: 20px;
+}
+
+/* ── Mobile ── */
+@media (max-width: 750px) {
+  .testi-scene { height: 440px; margin-bottom: 40px; }
+  .testi-card  { width: 126px; border-radius: 22px; padding: 8px 6px 10px; }
+  .testi-img-wrap { height: 165px; border-radius: 13px; }
+  .testi-notch { height: 12px; margin-bottom: 4px; }
+
+  .testi-0 { left: calc(50% - 207px); top: 24px;  }
+  .testi-1 { left: calc(50% - 63px);  top: 8px;   }
+  .testi-2 { left: calc(50% + 81px);  top: 22px;  }
+  .testi-3 { left: calc(50% - 196px); top: 216px; }
+  .testi-4 { left: calc(50% - 55px);  top: 198px; }
+  .testi-5 { left: calc(50% + 88px);  top: 216px; }
+
+  .testi-lb-box { gap: 8px; }
+  .testi-lb-nav { width: 38px; height: 38px; font-size: 20px; }
+  .testi-lb-scroll {
+    width: min(320px, calc(100vw - 100px));
+    max-height: calc(100dvh - 60px);
+  }
+}
+
+@media (max-width: 440px) {
+  .testi-scene { height: 340px; }
+  .testi-card  { width: 98px; border-radius: 18px; padding: 7px 5px 8px; }
+  .testi-notch { height: 10px; margin-bottom: 3px; }
+  .testi-img-wrap { height: 128px; border-radius: 10px; }
+
+  .testi-0 { left: calc(50% - 158px); top: 18px;  }
+  .testi-1 { left: calc(50% - 49px);  top: 5px;   }
+  .testi-2 { left: calc(50% + 60px);  top: 18px;  }
+  .testi-3 { left: calc(50% - 148px); top: 168px; }
+  .testi-4 { left: calc(50% - 43px);  top: 152px; }
+  .testi-5 { left: calc(50% + 66px);  top: 168px; }
+
+  .testi-lb-nav { display: flex; width: 34px; height: 34px; font-size: 18px; }
+  .testi-lb-scroll {
+    width: calc(100vw - 100px);
+    border-radius: 20px;
+    box-shadow: 0 0 0 6px #111, 0 20px 50px rgba(0,0,0,0.6);
+    max-height: calc(100dvh - 60px);
+  }
+  .testi-lb-box { gap: 8px; padding: 0 4px; box-sizing: border-box; width: 100%; }
+  .testi-lb-close { top: 12px; left: 12px; width: 32px; height: 32px; font-size: 14px; }
 }

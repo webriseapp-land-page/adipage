@@ -224,27 +224,62 @@
           האנשים האלה לא שונים ממך. לא מדובר במקרים יוצאי דופן.
           הם חוו בדיוק את מה שאת מרגישה כרגע והצליחו לצאת מזה.
         </p>
-        <p class="carousel-hint">לחצי על התמונה לקריאה מלאה</p>
+        <p class="testi-hint">לחצי על כרטיס לקריאה מלאה</p>
       </div>
-      <div class="carousel-wrap">
-        <div class="carousel-track" id="carouselTrack">
-          <div class="carousel-slide"><img src="images/testimonial1.png" alt="המלצה 1" /></div>
-          <div class="carousel-slide"><img src="images/testimonial2.png" alt="המלצה 2" /></div>
-          <div class="carousel-slide"><img src="images/testimonial3.png" alt="המלצה 3" /></div>
-          <div class="carousel-slide"><img src="images/testimonial4.png" alt="המלצה 4" /></div>
-          <div class="carousel-slide"><img src="images/testimonial5.png" alt="המלצה 5" /></div>
+
+      <!-- SCATTERED CARDS -->
+      <div class="testi-scene" id="testiScene">
+
+        <!-- Top row -->
+        <div class="testi-card testi-0" data-index="0" role="button" tabindex="0" aria-label="המלצה 1">
+          <div class="testi-notch"><div class="testi-notch-lines"><span></span><span></span></div></div>
+          <div class="testi-img-wrap"><img src="images/testimonial1.png" alt="המלצה 1" loading="lazy" /></div>
         </div>
-        <button class="carousel-btn carousel-prev" aria-label="הקודם">&#8250;</button>
-        <button class="carousel-btn carousel-next" aria-label="הבא">&#8249;</button>
-        <div class="carousel-dots" id="carouselDots"></div>
-      </div>
-      <div class="lightbox" id="lightbox">
-        <div class="lightbox-overlay" id="lightboxOverlay"></div>
-        <div class="lightbox-content">
-          <img src="" alt="" id="lightboxImg" />
-          <button class="lightbox-close" id="lightboxClose">&#x2715;</button>
+
+        <div class="testi-card testi-1" data-index="1" role="button" tabindex="0" aria-label="המלצה 2">
+          <div class="testi-notch"><div class="testi-notch-lines"><span></span><span></span></div></div>
+          <div class="testi-img-wrap"><img src="images/testimonial2.png" alt="המלצה 2" loading="lazy" /></div>
+        </div>
+
+        <div class="testi-card testi-2" data-index="2" role="button" tabindex="0" aria-label="המלצה 3">
+          <div class="testi-notch"><div class="testi-notch-lines"><span></span><span></span></div></div>
+          <div class="testi-img-wrap"><img src="images/testimonial3.png" alt="המלצה 3" loading="lazy" /></div>
+        </div>
+
+        <!-- Bottom row -->
+        <div class="testi-card testi-3" data-index="3" role="button" tabindex="0" aria-label="המלצה 4">
+          <div class="testi-notch"><div class="testi-notch-lines"><span></span><span></span></div></div>
+          <div class="testi-img-wrap"><img src="images/testimonial4.png" alt="המלצה 4" loading="lazy" /></div>
+        </div>
+
+        <div class="testi-card testi-4" data-index="4" role="button" tabindex="0" aria-label="המלצה 5">
+          <div class="testi-notch"><div class="testi-notch-lines"><span></span><span></span></div></div>
+          <div class="testi-img-wrap"><img src="images/testimonial5.png" alt="המלצה 5" loading="lazy" /></div>
+        </div>
+
+        <div class="testi-card testi-5" data-index="5" role="button" tabindex="0" aria-label="המלצה 6">
+          <div class="testi-notch"><div class="testi-notch-lines"><span></span><span></span></div></div>
+          <div class="testi-img-wrap"><img src="images/testimonial6.png" alt="המלצה 6" loading="lazy" /></div>
+        </div>
+
+      </div><!-- /.testi-scene -->
+
+      <!-- LIGHTBOX -->
+      <div class="testi-lb" id="testiLb" role="dialog" aria-modal="true" aria-label="צפייה בהמלצה">
+        <div class="testi-lb-overlay" id="testiLbOverlay"></div>
+        <div class="testi-lb-box">
+          <button class="testi-lb-close" id="testiLbClose" aria-label="סגירה">&#x2715;</button>
+          <button class="testi-lb-nav testi-lb-prev" id="testiLbPrev" aria-label="הקודם">&#8250;</button>
+          <div class="testi-lb-scroll" id="testiLbScroll">
+            <div class="testi-lb-chrome">
+              <div class="testi-lb-chrome-lines"><span></span><span></span></div>
+            </div>
+            <img src="" alt="" id="testiLbImg" />
+          </div>
+          <button class="testi-lb-nav testi-lb-next" id="testiLbNext" aria-label="הבא">&#8249;</button>
         </div>
       </div>
+
       <p class="results-bottom reveal">זה אומר שגם <span class="u">את</span> יכולה.</p>
     </div>
   </section>
@@ -349,7 +384,7 @@
       <div class="lead-inner reveal">
         <span class="section-label light">הצעד הבא</span>
         <h2 class="lead-title">אם את מרגישה שאת מוכנה<br/>לחזור לחיים של לפני החרדות</h2>
-        <a href="https://wa.me/972504030560?text=%D7%94%D7%99%D7%99%20%D7%A2%D7%93%D7%99%2C%20%D7%90%D7%A9%D7%9E%D7%97%20%D7%9C%D7%AA%D7%90%D7%95%D7%9D%20%D7%90%D7%99%D7%AA%D7%9A%20%D7%A9%D7%99%D7%97%D7%94%20%D7%98%D7%9C%D7%A4%D7%95%D7%A0%D7%99%D7%AA%20%D7%91%D7%A0%D7%95%D7%92%D7%A2%20%D7%9C%D7%AA%D7%94%D7%9C%D7%99%D7%9A%20%D7%90%D7%99%D7%AA%D7%9A" class="lead-btn wa-lead-btn" target="_blank" rel="noopener">לפרטים על התהליך איתי</a>
+        <a href="https://wa.me/972504030560?text=%D7%94%D7%99%D7%99%20%D7%A2%D7%93%D7%99%2C%20%D7%90%D7%A9%D7%9E%D7%97%20%D7%9C%D7%AA%D7%90%D7%9D%20%D7%90%D7%99%D7%AA%D7%9A%20%D7%A9%D7%99%D7%97%D7%AA%20%D7%98%D7%9C%D7%A4%D7%95%D7%9F%20%D7%A7%D7%A6%D7%A8%D7%94%20%D7%9B%D7%93%D7%99%20%D7%9C%D7%A7%D7%91%D7%9C%20%D7%A4%D7%A8%D7%98%D7%99%D7%9D%20%D7%A0%D7%95%D7%A1%D7%A4%D7%99%D7%9D%20%D7%A2%D7%9C%20%D7%AA%D7%94%D7%9C%D7%99%D7%9A%20%D7%90%D7%99%D7%AA%D7%9A" class="lead-btn wa-lead-btn" target="_blank" rel="noopener">אני רוצה פרטים על התהליך איתך</a>
         <div class="lead-social">
           <a href="https://www.instagram.com/adibm_therapy?igsh=dGd4YjUzYTB0Zmdz" target="_blank" rel="noopener" class="insta-link">
             <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1.2" fill="currentColor" stroke="none"/></svg>

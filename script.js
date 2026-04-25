@@ -186,89 +186,108 @@
   });
 
   /* --------------------------------------------------------------------------
-     8. Carousel + Lightbox
+     8. Testimonials — Scattered Cards + Lightbox
      -------------------------------------------------------------------------- */
-  const track = document.getElementById('carouselTrack');
-  if (track) {
-    const slides = track.querySelectorAll('.carousel-slide');
-    const dotsContainer = document.getElementById('carouselDots');
-    let current = 0;
-    let visibleCount = window.innerWidth <= 700 ? 1 : 3;
-    let maxIndex = Math.max(0, slides.length - visibleCount);
+  (function () {
+    var images = [
+      { src: 'images/testimonial1.png', alt: 'המלצה 1' },
+      { src: 'images/testimonial2.png', alt: 'המלצה 2' },
+      { src: 'images/testimonial3.png', alt: 'המלצה 3' },
+      { src: 'images/testimonial4.png', alt: 'המלצה 4' },
+      { src: 'images/testimonial5.png', alt: 'המלצה 5' },
+      { src: 'images/testimonial6.png', alt: 'המלצה 6' }
+    ];
 
-    // build dots
-    slides.forEach((_, i) => {
-      const dot = document.createElement('button');
-      dot.className = 'carousel-dot' + (i === 0 ? ' active' : '');
-      dot.addEventListener('click', () => goTo(i <= maxIndex ? i : maxIndex));
-      dotsContainer.appendChild(dot);
-    });
+    var lb        = document.getElementById('testiLb');
+    var lbImg     = document.getElementById('testiLbImg');
+    var lbScroll  = document.getElementById('testiLbScroll');
+    var lbOverlay = document.getElementById('testiLbOverlay');
+    var lbClose   = document.getElementById('testiLbClose');
+    var lbPrevBtn = document.getElementById('testiLbPrev');
+    var lbNextBtn = document.getElementById('testiLbNext');
+    var cards     = document.querySelectorAll('.testi-card');
 
-    function goTo(idx) {
-      current = Math.max(0, Math.min(idx, maxIndex));
-      const slideWidth = slides[0].offsetWidth + 20;
-      track.style.transform = `translateX(${current * slideWidth}px)`;
-      dotsContainer.querySelectorAll('.carousel-dot').forEach((d, i) => {
-        d.classList.toggle('active', i === current);
-      });
+    if (!lb || !cards.length) return;
+
+    var current = 0;
+
+    function setImage(index) {
+      lbImg.src = images[index].src;
+      lbImg.alt = images[index].alt;
+      if (lbScroll) lbScroll.scrollTop = 0;
     }
 
-    document.querySelector('.carousel-prev')?.addEventListener('click', () => goTo(current - 1));
-    document.querySelector('.carousel-next')?.addEventListener('click', () => goTo(current + 1));
+    function openLb(index) {
+      current = ((index % images.length) + images.length) % images.length;
+      setImage(current);
+      lb.classList.add('open');
+      document.body.style.overflow = 'hidden';
+      lbClose.focus();
+    }
 
-    // Lightbox
-    const lightbox = document.getElementById('lightbox');
-    const lightboxImg = document.getElementById('lightboxImg');
-    slides.forEach(slide => {
-      slide.addEventListener('click', () => {
-        const img = slide.querySelector('img');
-        if (img) {
-          lightboxImg.src = img.src;
-          lightboxImg.alt = img.alt;
-          lightbox.classList.add('open');
-          document.body.style.overflow = 'hidden';
+    function closeLb() {
+      lb.classList.remove('open');
+      document.body.style.overflow = '';
+      lbImg.src = '';
+    }
+
+    function lbNext() {
+      current = (current + 1) % images.length;
+      setImage(current);
+    }
+
+    function lbPrev() {
+      current = (current - 1 + images.length) % images.length;
+      setImage(current);
+    }
+
+    cards.forEach(function (card) {
+      card.addEventListener('click', function () {
+        openLb(parseInt(card.getAttribute('data-index'), 10));
+      });
+      card.addEventListener('keydown', function (e) {
+        if (e.key === 'Enter' || e.key === ' ') {
+          e.preventDefault();
+          openLb(parseInt(card.getAttribute('data-index'), 10));
         }
       });
     });
-    document.getElementById('lightboxOverlay')?.addEventListener('click', closeLightbox);
-    document.getElementById('lightboxClose')?.addEventListener('click', closeLightbox);
-    document.addEventListener('keydown', e => { if (e.key === 'Escape') closeLightbox(); });
-    function closeLightbox() {
-      lightbox.classList.remove('open');
-      document.body.style.overflow = '';
-    }
 
-    window.addEventListener('resize', () => {
-      visibleCount = window.innerWidth <= 700 ? 1 : 3;
-      maxIndex = Math.max(0, slides.length - visibleCount);
-      goTo(current);
+    lbOverlay.addEventListener('click', closeLb);
+    lbClose.addEventListener('click', closeLb);
+    lbPrevBtn.addEventListener('click', lbPrev);
+    lbNextBtn.addEventListener('click', lbNext);
+
+    document.addEventListener('keydown', function (e) {
+      if (!lb.classList.contains('open')) return;
+      if (e.key === 'Escape')     closeLb();
+      if (e.key === 'ArrowLeft')  lbNext();
+      if (e.key === 'ArrowRight') lbPrev();
+    });
+  })();
+
+  /* --------------------------------------------------------------------------
+     9. Lead Form → WhatsApp
+     -------------------------------------------------------------------------- */
+  var leadForm = document.getElementById('leadForm');
+  if (leadForm) {
+    leadForm.addEventListener('submit', function (e) {
+      e.preventDefault();
+      var name       = document.getElementById('fname').value.trim();
+      var age        = document.getElementById('fage').value.trim();
+      var source     = document.getElementById('fsource');
+      var sourceText = source.options[source.selectedIndex].text;
+      var phone      = document.getElementById('fphone').value.trim();
+      var msg = encodeURIComponent(
+        'היי עדי!\n' +
+        'שם: ' + name + '\n' +
+        'גיל: ' + age + '\n' +
+        'הגעתי אלייך דרך: ' + sourceText + '\n' +
+        'מספר טלפון: ' + phone + '\n\n' +
+        'אשמח לשמוע פרטים על התהליך 🙏'
+      );
+      window.open('https://wa.me/972504030560?text=' + msg, '_blank');
     });
   }
 
 })();
-
-  /* --------------------------------------------------------------------------
-     Lead Form → WhatsApp
-     -------------------------------------------------------------------------- */
-  const leadForm = document.getElementById('leadForm');
-  if (leadForm) {
-    leadForm.addEventListener('submit', function(e) {
-      e.preventDefault();
-      const name   = document.getElementById('fname').value.trim();
-      const age    = document.getElementById('fage').value.trim();
-      const source = document.getElementById('fsource');
-      const sourceText = source.options[source.selectedIndex].text;
-      const phone  = document.getElementById('fphone').value.trim();
-
-      const msg = encodeURIComponent(
-        `היי עדי!\n` +
-        `שם: ${name}\n` +
-        `גיל: ${age}\n` +
-        `הגעתי אלייך דרך: ${sourceText}\n` +
-        `מספר טלפון: ${phone}\n\n` +
-        `אשמח לשמוע פרטים על התהליך 🙏`
-      );
-      window.open(`https://wa.me/972504030560?text=${msg}`, '_blank');
-    });
-  }
-
